@@ -1,21 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
+import Title from './component/Title'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import './App.css';
 const accessKey = 'B9kQstTBtUHeXXy7KkqBMYxz8nAJxnXBZ6ZHktFqbpM'
 const UNSPLASH_URL = `https://api.unsplash.com/photos?client_id=${accessKey}`
+
+
 function App() {
   const [imageData, setImageData] = useState([]) 
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
 
-
+  useEffect(()=>{
+    getPhoto()
+  },[page])
 
   const getPhoto = () => {
-    const url = query ? `https://api.unsplash.com/search/photos?client_id=${accessKey}&page=${page}&query=${query}` : `${UNSPLASH_URL}&page=${page}`
-    
-    console.log(url)
-          
+    const url = query ? `https://api.unsplash.com/search/photos?client_id=${accessKey}&page=${page}&query=${query}` : `${UNSPLASH_URL}&page=${page}`      
     try {
 
           fetch(url)
@@ -35,16 +36,19 @@ function App() {
     setPage(1);
     getPhoto()
   }
-  useEffect(()=>{
-    getPhoto()
-  },[page])
+
   
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Title text='Unsplash_image_Gallery'/>
         <form onSubmit={searchPhoto}>
-        <input type="text" value={query} onChange={e=>setQuery(e.target.value)}/>
+        <input 
+            type="text" 
+            value={query} 
+            onChange={e=>setQuery(e.target.value)}
+            className='form-input'
+        />
         </form>
       <InfiniteScroll
         dataLength={imageData.length}
@@ -52,6 +56,7 @@ function App() {
         hasMore={true}
         loader={<h3>Loading...</h3>}
       >
+        
             <div className="image-grid" style={{width: 754+'px'}}>
                 {imageData.map((item,index)=>{
                 

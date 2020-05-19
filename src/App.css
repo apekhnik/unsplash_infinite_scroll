@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #00b894;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,7 @@
   }
 }
 .image-grid {
+  margin-top: 50px;
   display: grid;
   grid-gap: 15px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -52,14 +53,33 @@
   background: white;
   padding: 3px;
   border-radius: 3px;
-  transition: all 0.3s ease-in-out;
+  transition: translateY 0.3s ease-in-out;
+  transition: height 0.7s ease-in-out;
+  box-sizing: border-box;
 }
 .image:hover {
   transform: translateY(-2px);
+  /* transform: scale(1.5); */
+  height: 400px;
+  width: 100%;
 }
 .image:nth-child(3n){
   grid-column-end: span 2;
 }
-/* .image:nth-child(odd){
-  grid-column-end: span 6;
-} */
+
+
+
+form {
+  width: 350px;
+  height: 45px;
+}
+.form-input {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border: transparent;
+  font-size: 35px;
+}
+.form-input:focus {
+  outline: transparent;
+}
